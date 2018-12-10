@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="workout-shop.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+</head>
+
+<nav class='navbar'>
+    <span>Workout Guide &nbsp; | </span>
+    <ul>
+        <li><a (click)="navigate('home')">Home</a></li>
+        <li>
+            <div class="dropdown">
+                <button class="dropbtn">Exercises
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a (click)="navigate('biceps')">Biceps</a>
+                    <a (click)="navigate('triceps')">Triceps</a>
+                    <a (click)="navigate('chest')">Chest</a>
+                    <a (click)="navigate('shoulders')">Shoulders</a>
+                    <a (click)="navigate('legs')">Legs</a>
+                </div>
+            </div>
+        </li>
+        <li><a (click)="navigate('guide')">Workouts</a></li>
+        <li><a (click)="navigate('about')">About</a></li>
+    </ul>
+</nav>
+
+<body>
+    <script id="card_template" type="text/template">
+        <div class="flex">
+        {{#.}}
+            <div class="mypanel">
+                <img src={{url}}>
+                <!-- <a>{{id}}</a> -->
+                <a>{{name}}</a>
+                <a>${{price}}</a>
+                <img src={{url}}>
+            </div>
+        {{/.}}    
+        </div>
+
+        </script>
+    <h1>Workout Shop</h1>
+    <div id="mypanel"></div>
+    <script>
+        function item(id, name, price, url) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.url = url
+        }
+        var items = [];
+        items.push(new item("0001", "Workout Gloves", "10.99", "./assets/gloves.jpg"));
+        items.push(new item("0002", "Shaker Bottle", "6.99", "./assets/shaker.png"));
+        items.push(new item("0003", "Protein, 5lbs", "34.99", "./assets/protein.png"));
+        items.push(new item("0004", "Preworkout Powder", "24.99", "./assets/preworkout.jpg"));
+        items.push(new item("0005", "Tank Top", "14.99", "./assets/tank.jpg"));
+
+        items.push(new item("0006", "Weights", "74.99", "./assets/weights.jpg"));
+        items.push(new item("0007", "Kettle Bell", "33.99", "./assets/kettle.jpg"));
+        items.push(new item("0008", "Punching Bag", "34.99", "./assets/bag.jpg"));
+        items.push(new item("0009", "Running Shoes", "84.99", "./assets/shoe.jpg"));
+        items.push(new item("0010", "Jump Rope", "14.99", "./assets/rope.jpg"));
+        var template = $("#card_template").html();
+        var text = Mustache.render(template, items);
+
+        $("#mypanel").html(text);
+    </script>
+
+</body>
+
+</html>
